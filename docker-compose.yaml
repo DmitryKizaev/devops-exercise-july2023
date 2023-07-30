@@ -27,4 +27,11 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-      
+  nginx:
+    image: nginx:1.25.1
+    depends_on: django
+    ports:
+      - 80:80
+    volumes:
+      - ./configs/nginx:/etc/nginx/conf.d
+ 
