@@ -1,0 +1,8 @@
+version: '3.9'
+services:
+	django:
+		build: .
+	expose:
+		- 8000
+	environment:
+		- DEBUG=1
