@@ -18,3 +18,13 @@ services:
     # todo: uncomment after debug for security
     # ports:
     #   - "127.0.0.1:5432:5432"
+    environment:
+      POSTGRES_USER: db-admin
+      POSTGRES_PASSWORD: ${EXERCISE_DB_PASSWORD}
+      POSTGRES_DB: django
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U db-admin"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      
