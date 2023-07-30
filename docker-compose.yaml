@@ -1,8 +1,8 @@
-version: '3.9'
+version: '3.3'
 services:
-	django:
-		build: .
-	expose:
-		- 8000
-	environment:
-		- DEBUG=1
+  django:
+    build: .
+    ports:
+      - 8000:8000
+    environment:
+      - DEBUG=1
