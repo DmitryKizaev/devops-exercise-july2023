@@ -2,6 +2,9 @@ version: '3.3'
 services:
   django:
     container_name: postgres
+    # todo: build Dockerfile in CI, use a registry to store Dockerfile
+    # image: django-exercise:latest
+    # todo: use specific tag instead of latest after release
     build: .
     ports:
       - 8000:8000
