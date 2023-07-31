@@ -1,0 +1,38 @@
+version: '3.3'
+services:
+  django:
+    container_name: postgres
+    build: .
+    ports:
+      - 8000:8000
+    environment:
+      - DEBUG=1
+  db:
+    image: postgres:15
+    container_name: postgres
+    volumes:
+      - "/opt/data/pgsql-devops-exercise:/var/lib/postgresql/data"
+    restart: unless-stopped
+    expose:
+      - 5432
+    # todo: uncomment after debug for security
+    # ports:
+    #   - "127.0.0.1:5432:5432"
+    environment:
+      POSTGRES_USER: db-admin
+      POSTGRES_PASSWORD: ${EXERCISE_DB_PASSWORD}
+      POSTGRES_DB: django
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U db-admin"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  nginx:
+    image: nginx:1.25.1
+    depends_on: 
+      - django
+    ports:
+      - 80:80
+    volumes:
+      - ./configs/nginx:/etc/nginx/conf.d
+ 
